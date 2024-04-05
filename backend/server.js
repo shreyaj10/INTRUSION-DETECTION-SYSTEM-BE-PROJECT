@@ -3,7 +3,8 @@ const chats = require("./data/data");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoute");
-
+const chatRoutes = require("./routes/chatRoute");
+const messageRoutes = require("./routes/messageRoute");
 dotenv.config();
 
 connectDB();
@@ -16,6 +17,8 @@ app.get("/", (req, res) => {
 app.use(express.json()); //to accept json data
 
 app.use("/api/user", userRoutes);
+app.use("/api/chat", chatRoutes);
+app.use("/api/message", messageRoutes);
 
 const PORT = process.env.PORT || 5000;
 
