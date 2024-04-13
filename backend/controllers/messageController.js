@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const Message = require("../models/messageModel");
 const User = require("../models/userModel");
 const Chat = require("../models/chatModel");
+const http = require("http");
 
 //@description     Get all Messages
 //@route           GET /api/Message/:chatId
@@ -34,6 +35,36 @@ const sendMessage = asyncHandler(async (req, res) => {
     content: content,
     chat: chatId,
   };
+
+  const options = {
+    hostname: "jsonplaceholder.typicode.com", //model server name
+    path: "/posts", //model server path
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  // const getPosts = () => {
+  //   let data = "";
+
+  //   const request = http.request(options, (response) => {
+  //     response.setEncoding("utf8");
+  //     response.on("data", (chunk) => {
+  //       data += chunk;
+  //     });
+
+  //     response.on("end", () => {
+  //       console.log(data);
+  //     });
+  //   });
+
+  //   request.on("error", (error) => {
+  //     console.error(error);
+  //   });
+
+  //   request.end();
+  // };
 
   try {
     var message = await Message.create(newMessage);
